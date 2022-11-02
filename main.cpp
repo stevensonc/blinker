@@ -27,8 +27,8 @@ int main()
         ThisThread::sleep_for(BLINKING_RATE);
         vdd = true;
         gnd = false;
-        float tempTherm = tempVoltage;
+        float tempTherm = tempVoltage.read();
         vdd = false;
-        printf("The thermistor voltage is %fVolts\n", tempTherm);
+        printf("The thermistor voltage is %2.3fVolts\n", tempTherm);
     }
 }
