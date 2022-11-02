@@ -23,34 +23,34 @@
 #define THERM_OUT         P10_1
 #define THERM_VDD         P10_3
 #define THERM_GND         P10_0
-
-
-int main()
-{
-    // Initialise the digital pin LED1 as an output
     DigitalOut led(LED1);
     DigitalOut vdd(THERM_VDD);
     DigitalOut gnd(THERM_GND);
     AnalogIn tempVoltage(THERM_OUT);
+
+float readTemp();
+int main()
+{
+    // Initialise the digital pin LED1 as an output
 
     while (true) {
         led = !led;
         ThisThread::sleep_for(BLINKING_RATE);
         vdd = true;
         gnd = false;
-        float tempTherm = tempVoltage.read();
-        vdd = false;
+        float tempTherm = readTemp();
         printf("The thermistor voltage is %2.3fC\n", tempTherm);
     }
+}
     float readTemp() {
         // Power up the thermister
         vdd= true;
         gnd= false;
         // onvert to celcius
-    }
-}
-float readTemp() {
-    float refVoltage = temperatureVoltage.read() * 2.4; // Range of ADC 0->2*Vref
+    
+ 
+    float refVoltage = tempVoltage.read() * 2.4; // Range of ADC 0->2*Vref
+        vdd = false;
     float refCurrent = refVoltage  / 10000.0; // 10k Reference Resistor
     float thermVoltage = 3.3 - refVoltage;    // Assume supply voltage is 3.3v
     float thermResistance = thermVoltage / refCurrent; 
